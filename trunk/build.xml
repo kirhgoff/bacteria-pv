@@ -1,0 +1,28 @@
+<project name="Bacteria" default="create_jar" basedir=".">
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="distr" location="distr" />
+	<target name="makeinitdirs">
+		<tstamp />
+		<mkdir dir="${build}/" />
+		<mkdir dir="distr/lib/" />
+	</target>
+	<target name="compile" depends="makeinitdirs">
+		<javac srcdir="${src}" destdir="${build}">
+			<classpath id="classpath">
+				<pathelement path="lib/junit-4.5.jar" />
+				<pathelement path="lib/log4j-1.2.9.jar" />
+				<pathelement path="${src}" />
+			</classpath>
+		</javac>
+
+	</target>
+	<target name="create_jar" depends="compile">
+		<jar jarfile="distr/lib/Bac-${DSTAMP}-${TSTAMP}.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="com.db.bacteria.Main" />
+				<attribute name="Class-Path" value="junit-4.5.jar, log4j-1.2.9.jar " />
+			</manifest>
+		</jar>
+	</target>
+</project>
