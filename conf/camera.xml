@@ -1,0 +1,6 @@
+<camera width="800" height="800">
+	<ball mass="10" x="15" y="200" vx="10" vy="10" diameter="30"/>
+	<ball mass="10" x="315" y="400" vx="10" vy="10" diameter="30"/>
+	<ball mass="10" x="515" y="400" vx="10" vy="10" diameter="30"/>
+	<ball mass="10" x="15" y="200" vx="10" vy="10" diameter="30"/>
+</camera>
