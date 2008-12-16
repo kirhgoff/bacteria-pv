@@ -1,5 +1,7 @@
 package com.db.bacteria;
 
+import java.util.Arrays;
+
 import junit.framework.Assert;
 
 import org.apache.log4j.BasicConfigurator;
@@ -25,7 +27,7 @@ public class BacteriaTest {
 	public void testCollision() throws Exception {
 		Bacteria bacteriaBig = new Bacteria(0, 0, 5, 0, 4);
 		Bacteria bacteriaSmall = new Bacteria(3, 0, -5, 0, 2);
-		Camera.processCollided(new Bacteria[] { bacteriaBig, bacteriaSmall });
+		Camera.processCollided(Arrays.asList (new Bacteria[] { bacteriaBig, bacteriaSmall }));
 
 		Assert.assertEquals(-5, bacteriaBig.getVX());
 		Assert.assertEquals(5, bacteriaSmall.getVX());

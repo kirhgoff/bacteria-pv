@@ -153,4 +153,9 @@ public class Bacteria {
 		moveBy(getVX(), getVY());
 	}
 
+	public boolean includes(int targetX, int targetY) {
+		int toTheCenter = Math.abs(targetX - diameter/2- x)*Math.abs(targetX - diameter/2- x) +  
+			Math.abs(targetY- diameter/2 - y)*Math.abs(targetY - diameter/2 - y);
+		return toTheCenter < (diameter/2)*(diameter/2);
+	}
 }
