@@ -15,16 +15,16 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		BasicConfigurator.configure();
-	
+
 		final JFrame frame = new JFrame("Bacteria is moving New");
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
-		
-		camera = new Camera(0, 0, 800, 800);		
-		camera.setBacteria (Camera.createBacteria (25));
+
+		camera = new Camera(0, 0, 800, 800);
+		camera.setBacteria(Camera.createBacteria(10));
 		populationWindow = new PopulationWindow(camera);
 		populationWindow.addMouseListener(
 				new MouseAdapter () {
@@ -39,7 +39,7 @@ public class Main {
 
 		startPaintingThread();
 		startBacteriaThread();
-		
+
 		frame.setVisible(true);
 	}
 
@@ -61,7 +61,7 @@ public class Main {
 		thread.start();
 
 	}
-	
+
 	public static void startBacteriaThread() {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -74,9 +74,9 @@ public class Main {
 					}
 				}
 			}
-	
+
 		});
 		thread.start();
-	
-	}	
+
+	}
 }
