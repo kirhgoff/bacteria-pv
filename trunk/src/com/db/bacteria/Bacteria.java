@@ -1,5 +1,9 @@
 package com.db.bacteria;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
+
 public class Bacteria {
 	private int x;
 	private int y;
@@ -16,42 +20,60 @@ public class Bacteria {
 	 * Math.round(Math .random()10) - (int) Math.round(Math.random()10), (int)
 	 * Math.round(Math .random()100)); }
 	 */
+	public int ClickedX;
+	public int ClickedY;
 
-	public static Bacteria[] newRandomInstance(Bacteria[] bacterias) {
+	public static List<Bacteria> newRandomInstance(List<Bacteria> bacterias,
+			int quantityOfBacterias) {
 		// final Bacteria[] bacterias = new Bacteria[amountofBacterias];
-		do {
+		for (int i = 0; i < quantityOfBacterias; i++) {
+			bacterias.add(i, new Bacteria(
+					(int) Math.round(Math.random() * 600), (int) Math
+							.round(Math.random() * 600), (int) Math.round(Math
+							.random() * 10)
+							- (int) Math.round(Math.random() * 10), (int) Math
+							.round(Math.random() * 10)
+							- (int) Math.round(Math.random() * 10), (int) Math
+							.round(Math.random() * 100)));
+		}
+
+		while (verification(bacterias) == false) {
 			System.out.println("One more time");
-			for (int i = 0; i < bacterias.length; i++) {
-				bacterias[i] = new Bacteria((int) Math
+			for (int i = 0; i < bacterias.size(); i++) {
+				bacterias.set(i, new Bacteria((int) Math
 						.round(Math.random() * 600), (int) Math.round(Math
 						.random() * 600), (int) Math.round(Math.random() * 10)
 						- (int) Math.round(Math.random() * 10), (int) Math
 						.round(Math.random() * 10)
 						- (int) Math.round(Math.random() * 10), (int) Math
-						.round(Math.random() * 100));
+						.round(Math.random() * 100)));
 			}
-		} while (verification(bacterias) == false);
-
+		}
 		return bacterias;
 	}
 
-	//TODO load bacteria configuration from XML file
-	public static boolean verification(Bacteria[] bacterias) {
-		double[][] centralDistancesIJ = new double[bacterias.length][bacterias.length];
-		double[][] actualDistancesIJ = new double[bacterias.length][bacterias.length];
+	// TODO load bacteria configuration from XML file
+
+	public static boolean verification(List<Bacteria> bacterias) {
+		double[][] centralDistancesIJ = new double[bacterias.size()][bacterias
+				.size()];
+		double[][] actualDistancesIJ = new double[bacterias.size()][bacterias
+				.size()];
 		double actualDistanceX;
 		double actualDistanceY;
 		int sum = 0;
-		for (int i = 0; i <= (bacterias.length - 1); i++) {
-			for (int j = i + 1; j < bacterias.length; j++) {
-				centralDistancesIJ[i][j] = bacterias[i].getDiameter() / 2
-						+ bacterias[j].getDiameter() / 2;
-				actualDistanceX = (bacterias[j].getX() - bacterias[i].getX()
-						+ bacterias[j].getDiameter() / 2 - bacterias[i]
-						.getDiameter() / 2);
-				actualDistanceY = bacterias[j].getY() - bacterias[i].getY()
-						+ bacterias[j].getDiameter() / 2
-						- bacterias[i].getDiameter() / 2;
+		for (int i = 0; i <= (bacterias.size() - 1); i++) {
+			for (int j = i + 1; j < bacterias.size(); j++) {
+				centralDistancesIJ[i][j] = bacterias.get(i).getDiameter() / 2
+						+ bacterias.get(j).getDiameter() / 2;
+				actualDistanceX = bacterias.get(j).getX()
+						- bacterias.get(j).getX()
+						+ bacterias.get(j).getDiameter() / 2
+						- bacterias.get(i).getDiameter() / 2;
+				actualDistanceY = bacterias.get(j).getY()
+						- bacterias.get(i).getY()
+						+ bacterias.get(j).getDiameter() / 2
+						- bacterias.get(i).getDiameter() / 2;
 				actualDistancesIJ[i][j] = Math.round(Math.sqrt(Math.pow(
 						actualDistanceX, 2)
 						+ Math.pow(actualDistanceY, 2)));
@@ -62,7 +84,7 @@ public class Bacteria {
 			}
 		}
 		System.out.println("sum: " + sum);
-		if (sum == bacterias.length * (bacterias.length - 1) / 2) {
+		if (sum == bacterias.size() * (bacterias.size() - 1) / 2) {
 			return true;
 		} else {
 			return false;
@@ -93,6 +115,38 @@ public class Bacteria {
 			setY(camera.getMaxY() - getDiameter());
 
 		}
+	}
+
+	public static void termination(List<Bacteria> bacterias,
+			int ClickedX, int ClickedY) {
+		for (int i = 0; i < bacterias.size(); i++) {
+			int a = bacterias.get(i).getX() + bacterias.get(i).getDiameter()
+					/ 2;
+			int b = bacterias.get(i).getY() + bacterias.get(i).getDiameter()
+					/ 2;
+			if (bacterias.get(i).getDiameter() / 2 >= (int) Math
+					.abs(Math.sqrt(Math.pow((bacterias.get(i).getX()
+							+ bacterias.get(i).getDiameter() / 2
+							- bacterias.get(i).getVX() - ClickedX), 2)
+							+ Math.pow((bacterias.get(i).getY()
+									+ bacterias.get(i).getDiameter() / 2
+									- bacterias.get(i).getVY() - ClickedY), 2))))
+
+			{
+
+				System.out.println("Шарик номер: " + bacterias.get(i)
+						+ "В верхнюю тундру! ");
+				bacterias.remove(i);
+
+			} else {
+				System.out.println("Центр шарика:  " + a + ";" + b
+						+ "Радиус шарика: " + bacterias.get(i).getDiameter()
+						/ 2);
+				System.out.println("Кликнули сюда:  " + ClickedX + ";"
+						+ ClickedY);
+			}
+		}
+
 	}
 
 	public void setX(int x) {

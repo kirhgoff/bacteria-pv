@@ -1,15 +1,18 @@
 package com.db.bacteria;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
 
 public class Camera {
 	private int minX = 0;
 	private int minY = 0;
 	private int maxX = 800;
 	private int maxY = 800;
+
 	// TODO List<Bacteria> bacterias = new ArrayList<Bacteria> ();
 	private List<Bacteria> bacterias = Collections
 			.synchronizedList(new ArrayList<Bacteria>());
@@ -23,10 +26,11 @@ public class Camera {
 		this.maxY = maxY;
 	}
 
-	public static Bacteria[] createBacteria(int size) {
-		Bacteria[] bacterias = new Bacteria[size];
+	public static List<Bacteria> createBacteria(int quantityOfBacterias) {
+		List<Bacteria> bacterias = new ArrayList<Bacteria>(quantityOfBacterias);
 		// TODO create random instances one by one
-		Bacteria.newRandomInstance(bacterias);
+		Bacteria.newRandomInstance(bacterias, quantityOfBacterias);
+
 		return bacterias;
 	}
 
@@ -115,21 +119,13 @@ public class Camera {
 				/ 2 - bacteriaI.getDiameter() / 2);
 	}
 
-	public void setBacteria(Bacteria[] theBacterias) {
-		for (int i = 0; i < theBacterias.length; i++) {
-			bacterias.add(theBacterias [i]);
-		}
+	public void setBacteria(List<Bacteria> bacterias) {
+		this.bacterias = bacterias;
 
 	}
 
-	public Bacteria[] getBacteria() {
-		Bacteria[] array = new Bacteria[bacterias.size()];
-		int i = 0;
-		for (Bacteria bacteria : bacterias) {
-			array[i] = bacteria;
-			i++;
-		}
-		return array;
+	public List<Bacteria> getBacteria() {
+		return bacterias;
 	}
 
 	public int getMinX() {
@@ -159,5 +155,4 @@ public class Camera {
 			}
 		}
 	}
-
 }
