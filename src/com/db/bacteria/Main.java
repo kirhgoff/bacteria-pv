@@ -1,5 +1,7 @@
 package com.db.bacteria;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -24,6 +26,14 @@ public class Main {
 		camera = new Camera(0, 0, 800, 800);		
 		camera.setBacteria (Camera.createBacteria (25));
 		populationWindow = new PopulationWindow(camera);
+		populationWindow.addMouseListener(
+				new MouseAdapter () {
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						camera.killBacteriaAt (e.getX(), e.getY());
+					}
+				}
+		);
 		frame.getContentPane ().add(populationWindow);
 		frame.pack();
 
@@ -40,7 +50,7 @@ public class Main {
 					populationWindow.repaint();
 
 					try {
-						Thread.sleep(100);
+						Thread.sleep(50);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

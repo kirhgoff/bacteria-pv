@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 @SuppressWarnings("serial")
 public class PopulationWindow extends JComponent{
 	private Camera camera = null;
-    private Image bacteriaImage;
+    private Image bacteriaImage = null;
 
 	public PopulationWindow(Camera camera) {
 		this.camera = camera;
