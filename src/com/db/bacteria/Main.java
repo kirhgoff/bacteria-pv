@@ -39,8 +39,18 @@ public class Main {
 
 		startPaintingThread();
 		startBacteriaThread();
-
+		startConnectorThread (new BacteriaConnector (camera));
 		frame.setVisible(true);
+	}
+
+	private static void startConnectorThread (BacteriaConnector connector) {
+		new Thread (connector, "Connection acceptor").start ();
+		try {
+			connector.startSendingUpdates ();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void startPaintingThread() {
@@ -57,7 +67,7 @@ public class Main {
 				}
 			}
 
-		});
+		}, "Repaint");
 		thread.start();
 
 	}
@@ -75,7 +85,7 @@ public class Main {
 				}
 			}
 
-		});
+		}, "Recalculate");
 		thread.start();
 
 	}

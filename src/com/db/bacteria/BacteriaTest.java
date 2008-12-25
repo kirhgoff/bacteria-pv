@@ -107,5 +107,6 @@ public class BacteriaTest {
 	// Assert.assertEquals (100, bacteria.getVY ());
 	// Assert.assertEquals (200, bacteria.getDiameter());
 	// }
+	
 
 }
