@@ -1,13 +1,16 @@
 package com.db.bacteria;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 
-public class Camera {
+public class Camera implements Serializable {
+	private static final long serialVersionUID = -6840047208562517449L;
+	
 	private int minX = 0;
 	private int minY = 0;
 	private int maxX = 800;
@@ -154,5 +157,27 @@ public class Camera {
 				break;
 			}
 		}
+	}
+
+	public void populate(int size) {
+		setBacteria(createBacteria(size));
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Camera)) return false;
+		Camera other = (Camera) obj;
+		
+		//TODO this coordinates are not the same as screen width and height - should be separated
+		if (minX != other.minX) return false;
+		if (minY != other.minY) return false;
+		if (maxX != other.maxX) return false;
+		if (maxY != other.maxY) return false;
+		
+		for (int i = 0; i < bacterias.size(); i ++) {
+			if (!bacterias.get(i).equals(other.bacterias.get(i))) return false;
+		}
+		
+		return true;
 	}
 }

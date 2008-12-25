@@ -1,6 +1,9 @@
 package com.db.bacteria;
 
-import java.util.Arrays;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import junit.framework.Assert;
 
@@ -21,6 +24,20 @@ public class BacteriaTest {
 		Assert.assertEquals(-10, bacteria.getVY());
 		Assert.assertEquals(0, bacteria.getX());
 		Assert.assertEquals(-1, bacteria.getY());
+	}
+	
+	@Test
+	public void testCameraSerialization () throws Exception {
+		Camera camera = new Camera (0, 0, 800, 800);
+		camera.populate (10);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream ();
+		ObjectOutputStream os = new ObjectOutputStream (bos);
+		os.writeObject(camera);
+		byte[] byteArray = bos.toByteArray();
+		
+		ObjectInputStream is = new ObjectInputStream (new ByteArrayInputStream (byteArray));
+		Camera cameraRead  = (Camera) is.readObject();
+		Assert.assertEquals (camera, cameraRead);
 	}
 
 	// @Test

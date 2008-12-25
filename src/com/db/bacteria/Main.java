@@ -24,7 +24,7 @@ public class Main {
 		});
 
 		camera = new Camera(0, 0, 800, 800);
-		camera.setBacteria(Camera.createBacteria(10));
+		camera.populate (10);
 		populationWindow = new PopulationWindow(camera);
 		populationWindow.addMouseListener(
 				new MouseAdapter () {

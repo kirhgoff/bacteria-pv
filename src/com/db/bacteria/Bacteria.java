@@ -1,10 +1,11 @@
 package com.db.bacteria;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.List;
 
-public class Bacteria {
+public class Bacteria implements Serializable {
+	private static final long serialVersionUID = -7465812087743365129L;
+	
 	private int x;
 	private int y;
 	private int vx;
@@ -20,9 +21,6 @@ public class Bacteria {
 	 * Math.round(Math .random()10) - (int) Math.round(Math.random()10), (int)
 	 * Math.round(Math .random()100)); }
 	 */
-	public int ClickedX;
-	public int ClickedY;
-
 	public static List<Bacteria> newRandomInstance(List<Bacteria> bacterias,
 			int quantityOfBacterias) {
 		// final Bacteria[] bacterias = new Bacteria[amountofBacterias];
@@ -134,15 +132,15 @@ public class Bacteria {
 
 			{
 
-				System.out.println("Шарик номер: " + bacterias.get(i)
-						+ "В верхнюю тундру! ");
+				System.out.println("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: " + bacterias.get(i)
+						+ "пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ! ");
 				bacterias.remove(i);
 
 			} else {
-				System.out.println("Центр шарика:  " + a + ";" + b
-						+ "Радиус шарика: " + bacterias.get(i).getDiameter()
+				System.out.println("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ:  " + a + ";" + b
+						+ "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: " + bacterias.get(i).getDiameter()
 						/ 2);
-				System.out.println("Кликнули сюда:  " + ClickedX + ";"
+				System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ:  " + ClickedX + ";"
 						+ ClickedY);
 			}
 		}
@@ -211,5 +209,19 @@ public class Bacteria {
 		int toTheCenter = Math.abs(targetX - diameter/2- x)*Math.abs(targetX - diameter/2- x) +  
 			Math.abs(targetY- diameter/2 - y)*Math.abs(targetY - diameter/2 - y);
 		return toTheCenter < (diameter/2)*(diameter/2);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Bacteria)) return false;
+		Bacteria other = (Bacteria) obj;
+		
+		if (x != other.x) return false;
+		if (y != other.y) return false;
+		if (vx != other.vx) return false;
+		if (vy != other.vy) return false;
+		if (diameter != other.diameter) return false;
+
+		return true;
 	}
 }
